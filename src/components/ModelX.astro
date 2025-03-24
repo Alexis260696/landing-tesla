@@ -1,12 +1,12 @@
 ---
-import Section from "./Section.astro";
+import Section from "./Section.astro"
 ---
 
 <Section
-  title="Model S"
+  title="Model X"
   subtitle="Programe una consulta virtual"
   color="black"
-  id="model-s"
+  id="model-x"
 >
   <div slot="footer" class="gap-x-6 flex mx-auto">
     <a
@@ -25,10 +25,10 @@ import Section from "./Section.astro";
 
   <img
     slot="background"
-    alt="Model S"
+    alt="Model X"
     class="h-full w-full object-cover object-center"
-    src="model-s.avif"
-    id="bg-image-models"
+    src="model-x.avif"
+    id="bg-image-modelx"
   />
 </Section>
 
@@ -38,17 +38,19 @@ import Section from "./Section.astro";
       navigator.userAgent.indexOf("Edge") > -1 ||
       navigator.userAgent.indexOf("Edg") > -1
     ) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
-  let imageElement = document.querySelector("#bg-image-models") as HTMLImageElement; // TypeScript
+  let imageElement = document.querySelector(
+    "#bg-image-modelx"
+  ) as HTMLImageElement
 
   if (isEdge()) {
-    imageElement.src = "model-s.webp";
+    imageElement.src = "model-x.webp"
   } else {
-    imageElement.src = "model-s.avif";
+    imageElement.src = "model-x.avif"
   }
 </script>
