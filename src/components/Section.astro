@@ -10,20 +10,47 @@ import FooterMenu from './FooterMenu.astro';
   id={id}
 >
   <div class="z-30 relative h-full flex flex-col">
-    <header>
-      <h2 class={`${textColor} pt-40 text-[40px] font-medium`}>
-        {title}
-      </h2>
-      <p class={`${textColor} text-sm`}>
-        {subtitle}
-      </p>
-    </header>
+    {
+      id === 'experience' ? (
+        <div class="flex flex-col justify-center items-start h-full px-16 text-left">
+          <h2 class={`${textColor} text-[40px] font-medium`}>
+            {title}
+          </h2>
+          <p class={`${textColor} text-[25px] mt-2`}>
+            {subtitle}
+          </p>
+          <div class="mt-6">
+            <slot name="footer" />
+          </div>
+        </div>
+      ) : (
+        <>
+          <header>
+            {
+              id === 'cibertruck' ? (
+                <img 
+                  src="/logo-cibertruck-blanco.svg" 
+                  alt="Cybertruck Logo" 
+                  class="mx-auto w-[400px] h-auto pt-40 mb-2"
+                />
+              ) : (
+                <h2 class={`${textColor} pt-40 text-[40px] font-medium`}>
+                  {title}
+                </h2>
+              )
+            }
+            <p class={`${textColor} text-[25px]`}>
+              {subtitle}
+            </p>
+          </header>
 
-    <footer class="flex flex-col flex-grow justify-end pb-20">
-      <slot name="footer" />
-      <!-- Contidionally load footer: -->
-      {showFooterContent && <FooterMenu />}
-    </footer>
+          <footer class="flex flex-col flex-grow justify-end pb-20">
+            <slot name="footer" />
+            {showFooterContent && <FooterMenu />}
+          </footer>
+        </>
+      )
+    }
   </div>
 
   <div class="absolute top-0 bottom-0 h-full w-full z-10">

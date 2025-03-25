@@ -13,44 +13,73 @@ import Section from "./Section.astro"
       class="border-[3px] border-gray-600 bg-gray-600 text-sm rounded font-medium text-white px-12 py-2 inline-block transition-colors hover:border-gray-500 hover:bg-gray-500"
       href="#"
     >
-      Explorar inventario</a
-    >
+      Explorar inventario
+    </a>
     <a
       class="bg-white text-sm rounded font-medium px-12 py-2 transition-colors hover:bg-black hover:text-white inline-flex justify-center items-center text-black"
       href="#"
     >
-      Pedido personalizado</a
-    >
+      Pedido personalizado
+    </a>
   </div>
 
-  <img
-    slot="background"
-    alt="Model 3"
-    class="h-full w-full object-cover object-center"
-    src="model-3.avif"
-    id="bg-image-model3"
-  />
-</Section>
+  <div slot="background" class="relative h-full w-full">
+    <img
+      alt="Model 3"
+      id="image1"
+      src="model-3.avif"
+      class="absolute top-0 left-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-100 z-10"
+    />
+    <img
+      alt="Model 3"
+      id="image2"
+      src="Homepage-Model-3-Desktop-US.png"
+      class="absolute top-0 left-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-0 z-0"
+    />
+  </div>
+  
 
+</Section>
 <script>
+  const images = [
+    "model-3.avif",
+    "Homepage-Model-3-Desktop-US.png"
+  ];
+
+  let currentIndex = 0;
+  let showingFirst = true;
+
+  const img1 = document.getElementById("image1") as HTMLImageElement | null;
+  const img2 = document.getElementById("image2") as HTMLImageElement | null;
+
   function isEdge() {
-    if (
-      navigator.userAgent.indexOf("Edge") > -1 ||
-      navigator.userAgent.indexOf("Edg") > -1
-    ) {
-      return true
-    } else {
-      return false
-    }
+    return navigator.userAgent.includes("Edge") || navigator.userAgent.includes("Edg");
   }
 
-  let imageElement = document.querySelector(
-    "#bg-image-model3"
-  ) as HTMLImageElement
+  function crossfade() {
+    if (!img1 || !img2) return;
 
-  if (isEdge()) {
-    imageElement.src = "model-3.webp"
-  } else {
-    imageElement.src = "model-3.avif"
+    const currentImg = showingFirst ? img1 : img2;
+    const nextImg = showingFirst ? img2 : img1;
+
+    currentIndex = (currentIndex + 1) % images.length;
+
+    nextImg.src = images[currentIndex];
+    nextImg.classList.remove("opacity-0");
+    nextImg.classList.add("opacity-100");
+
+    currentImg.classList.remove("opacity-100");
+    currentImg.classList.add("opacity-0");
+
+    showingFirst = !showingFirst;
+  }
+
+  if (img1 && img2) {
+    if (isEdge()) {
+      img1.src = "model-3.webp";
+    }
+
+    setInterval(crossfade, 5000);
   }
 </script>
+
